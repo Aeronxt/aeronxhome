@@ -4,14 +4,14 @@ This project is configured for deployment with Cloudflare Workers using Wrangler
 
 ## Prerequisites
 
-1. Install Cloudflare Wrangler CLI globally:
+1. Install Cloudflare Wrangler CLI globally (optional, we use npx):
    ```bash
    npm install -g wrangler
    ```
 
 2. Authenticate with Cloudflare:
    ```bash
-   wrangler login
+   npx wrangler login
    ```
 
 ## Manual Deployment
@@ -23,7 +23,7 @@ This project is configured for deployment with Cloudflare Workers using Wrangler
 
 2. Deploy to Cloudflare Workers:
    ```bash
-   wrangler deploy
+   npx wrangler deploy
    ```
 
    Or use the provided script:
@@ -54,7 +54,7 @@ The project includes a GitHub Actions workflow for automated deployment. To set 
 If you need to add environment variables for production:
 
 1. Add them to the `[vars]` section in `wrangler.toml`
-2. Or use `wrangler secret put <KEY>` for sensitive values
+2. Or use `npx wrangler secret put <KEY>` for sensitive values
 
 ## Custom Domain
 

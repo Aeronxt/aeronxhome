@@ -9,8 +9,8 @@
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
     "preview": "vite preview",
-    "deploy": "npm run build && wrangler deploy",
-    "deploy:dev": "npm run build:dev && wrangler deploy --env development"
+    "deploy": "npm run build && npx wrangler deploy",
+    "deploy:dev": "npm run build:dev && npx wrangler deploy --env development"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
