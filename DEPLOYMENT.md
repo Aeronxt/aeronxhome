@@ -1,4 +1,3 @@
-
 # Deployment Guide
 
 This project is configured for deployment with Cloudflare Pages using Wrangler.
@@ -24,7 +23,7 @@ This project is configured for deployment with Cloudflare Pages using Wrangler.
 
 2. Deploy to Cloudflare Pages:
    ```bash
-   npx wrangler pages deploy dist --project-name=aeron-x-flowscape-website
+   npx wrangler pages deploy dist --project-name=aeron-x
    ```
 
    Or use the provided script:
