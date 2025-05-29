@@ -4,5 +4,7 @@ compatibility_date = "2024-01-15"
 [build]
 command = "npm install && npm run build"
 
+pages_build_output_dir = "dist"
+
 [pages]
-build_output_dir = "dist" 
+framework = "vite" 
