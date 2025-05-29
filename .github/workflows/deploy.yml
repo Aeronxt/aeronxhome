@@ -1,10 +1,7 @@
-name: Deploy to Cloudflare Workers
+name: Deploy to Cloudflare Pages
 
 on:
   push:
-    branches:
-      - master
-  pull_request:
     branches:
       - master
 
@@ -19,33 +16,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '18.19.0'
-          registry-url: 'https://registry.npmjs.org'
-
-      - name: Clean and prepare environment
-        run: |
-          npm cache clean --force
-          rm -rf node_modules
-          rm -f package-lock.json
-          rm -rf ~/.npm
-
-      - name: Install dependencies with retry
-        run: |
-          npm install --no-optional --force || npm install --no-optional --force || npm install --force
-
-      - name: Verify rollup installation
-        run: |
-          npm list rollup || echo "Rollup not found, installing manually"
-          npm install rollup@4.21.0 --save-dev --force
-
-      - name: Build project
-        run: npm run build
-
-      - name: Deploy to Cloudflare Workers
-        uses: cloudflare/wrangler-action@v3
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: aeron-x
+          directory: dist
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

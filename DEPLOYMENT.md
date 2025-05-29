@@ -1,71 +1,94 @@
-# Deployment Guide
+# Deployment Guide - Cloudflare Pages
 
-This project is configured for deployment with Cloudflare Workers using Wrangler.
+This project is deployed using **Cloudflare Pages** with automatic builds and deployments.
 
-## Prerequisites
+## 🚀 Automatic Deployment
 
-1. Install Cloudflare Wrangler CLI globally (optional, we use npx):
-   ```bash
-   npm install -g wrangler
-   ```
+The site automatically deploys when you push to the `master` branch. Cloudflare Pages handles:
+- ✅ **Automatic builds** using `npm run build`
+- ✅ **Dependency installation** 
+- ✅ **Static file serving**
+- ✅ **Global CDN distribution**
 
-2. Authenticate with Cloudflare:
-   ```bash
-   npx wrangler login
-   ```
+## 🔧 Setup Requirements
 
-## Manual Deployment
+### 1. Cloudflare Account Setup
+1. Create a [Cloudflare account](https://dash.cloudflare.com/sign-up)
+2. Go to **Pages** in the Cloudflare dashboard
+3. Connect your GitHub repository
+4. Set build settings:
+   - **Build command**: `npm run build`
+   - **Build output directory**: `dist`
+   - **Node.js version**: `18`
 
-1. Build the project:
-   ```bash
-   npm run build
-   ```
+### 2. GitHub Secrets
+Add these secrets to your GitHub repository settings:
 
-2. Deploy to Cloudflare Workers:
-   ```bash
-   npx wrangler deploy
-   ```
+```
+CLOUDFLARE_API_TOKEN=your_api_token_here
+CLOUDFLARE_ACCOUNT_ID=your_account_id_here
+```
 
-   Or use the provided script:
-   ```bash
-   chmod +x deploy.sh
-   ./deploy.sh
-   ```
+**To get your API token:**
+1. Go to [Cloudflare API Tokens](https://dash.cloudflare.com/profile/api-tokens)
+2. Create a **Custom Token** with:
+   - **Permissions**: `Cloudflare Pages:Edit`
+   - **Account Resources**: Include your account
+   - **Zone Resources**: Include all zones
 
-   Or use the npm script:
-   ```bash
-   npm run deploy
-   ```
+## 🌐 Live Site
 
-## Automated Deployment with GitHub Actions
+The site will be available at:
+- **Production**: `https://aeron-x.pages.dev`
+- **Custom Domain**: Configure in Cloudflare Pages dashboard
 
-The project includes a GitHub Actions workflow for automated deployment. To set it up:
+## 📁 Project Structure
 
-1. In your GitHub repository, go to Settings > Secrets and variables > Actions
+```
+aeron-x/
+├── src/                 # React source code
+├── public/             # Static assets
+├── dist/               # Build output (auto-generated)
+├── .github/workflows/  # GitHub Actions
+└── package.json        # Dependencies and scripts
+```
 
-2. Add the following secrets:
-   - `CLOUDFLARE_API_TOKEN`: Your Cloudflare API token with Workers permissions
-   - `CLOUDFLARE_ACCOUNT_ID`: Your Cloudflare account ID
+## 🛠 Local Development
 
-3. Push to the master branch to trigger automatic deployment
+```bash
+# Install dependencies
+npm install
 
-## Environment Variables
+# Start development server
+npm run dev
 
-If you need to add environment variables for production:
+# Build for production
+npm run build
 
-1. Add them to the `[vars]` section in `wrangler.toml`
-2. Or use `npx wrangler secret put <KEY>` for sensitive values
+# Preview production build
+npm run preview
+```
 
-## Custom Domain
+## 🔄 Deployment Process
 
-To add a custom domain:
+1. **Push to master** → Triggers GitHub Action
+2. **GitHub Action** → Deploys to Cloudflare Pages
+3. **Cloudflare Pages** → Builds and serves the site globally
 
-1. In the Cloudflare Dashboard, go to Workers & Pages > Your Worker > Settings > Triggers
-2. Add your custom domain and configure the route patterns
+## 📊 Benefits of Cloudflare Pages
 
-## KV Storage
+- ✅ **Zero configuration** - automatic builds
+- ✅ **Global CDN** - fast worldwide delivery
+- ✅ **Free SSL** - automatic HTTPS
+- ✅ **Preview deployments** - for pull requests
+- ✅ **Analytics** - built-in traffic insights
+- ✅ **No server management** - fully serverless
 
-This worker is configured to use Cloudflare KV for asset storage. Make sure to:
+## 🐛 Troubleshooting
 
-1. Create a KV namespace in your Cloudflare dashboard
-2. Update the `kv_namespaces` section in `wrangler.toml` with your namespace IDs
+If deployment fails:
+1. Check the **GitHub Actions** tab for build logs
+2. Verify **Cloudflare Pages** dashboard for deployment status
+3. Ensure all **environment variables** are set correctly
+
+For build issues, the automatic build system handles dependency resolution much more reliably than manual configurations.
