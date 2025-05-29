@@ -2,7 +2,7 @@ name = "aeronxhome"
 compatibility_date = "2024-01-15"
 
 [build]
-command = "npm install && npm run build"
+command = "npm run build"
 
 [site]
-bucket = "./dist" 
+bucket = "dist" 
