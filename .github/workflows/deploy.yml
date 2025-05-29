@@ -22,13 +22,24 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '18.19.0'
+          registry-url: 'https://registry.npmjs.org'
 
-      - name: Clear npm cache and install dependencies
+      - name: Clean and prepare environment
         run: |
           npm cache clean --force
+          rm -rf node_modules
           rm -f package-lock.json
-          npm install
+          rm -rf ~/.npm
+
+      - name: Install dependencies with retry
+        run: |
+          npm install --no-optional --force || npm install --no-optional --force || npm install --force
+
+      - name: Verify rollup installation
+        run: |
+          npm list rollup || echo "Rollup not found, installing manually"
+          npm install rollup@4.21.0 --save-dev --force
 
       - name: Build project
         run: npm run build
