@@ -5,7 +5,7 @@ compatibility_date = "2024-01-15"
 bucket = "./dist"
 
 [build]
-command = "npm run build"
+command = "npm install && npm run build"
 output_dir = "dist"
 
 [env.production]
