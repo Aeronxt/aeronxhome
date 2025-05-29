@@ -9,10 +9,11 @@ bucket = "./dist"
 [build]
 command = "npm run build"
 
-[[kv_namespaces]]
-binding = "ASSETS"
-preview_id = ""
-id = ""
+# Uncomment and configure KV namespace after creating it in Cloudflare Dashboard
+# [[kv_namespaces]]
+# binding = "ASSETS"
+# preview_id = "your-preview-namespace-id"
+# id = "your-production-namespace-id"
 
 [vars]
 ENVIRONMENT = "production" 
