@@ -3,5 +3,5 @@
 # Build the project
 npm run build
 
-# Deploy to Cloudflare Pages using Wrangler
-npx wrangler pages deploy dist --project-name=aeron-x
+# Deploy to Cloudflare Workers using Wrangler
+wrangler deploy
