@@ -36,7 +36,6 @@ const Navbar = () => {
     { name: 'About', href: '#about', type: 'scroll', sectionId: 'about' },
     { name: 'Portfolio', href: '#services', type: 'scroll', sectionId: 'services' },
     { name: 'Contact', href: '/contact', type: 'link' },
-    { name: 'FAQ', href: '/pricing', type: 'link' },
   ];
 
   return (
@@ -51,14 +50,11 @@ const Navbar = () => {
             <div className="flex justify-between items-center">
               {/* Logo */}
               <Link to="/" className="flex items-center group">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-aeron-purple to-aeron-blue flex items-center justify-center">
-                    <div className="w-4 h-4 bg-white rounded-sm" />
-                  </div>
-                  <span className="text-xl font-bold text-white group-hover:text-aeron-purple transition-colors">
-                    AeronX
-                  </span>
-                </div>
+                <img 
+                  src="https://wrczctvglyhprlbkogjb.supabase.co/storage/v1/object/public/mob//aerondropshad.png" 
+                  alt="Aeron X Logo" 
+                  className="h-6 w-auto transition-all duration-300 group-hover:scale-110 drop-shadow-lg"
+                />
               </Link>
 
               {/* Desktop Navigation */}

@@ -77,8 +77,8 @@ const ServicesSection = () => {
           <div className="absolute top-1/4 left-1/3 w-96 h-96 rounded-full bg-gradient-to-r from-aeron-purple/30 to-aeron-blue/30 blur-3xl animate-pulse-slow" />
           <div className="absolute bottom-1/4 right-1/3 w-80 h-80 rounded-full bg-gradient-to-r from-aeron-cyan/30 to-aeron-pink/30 blur-3xl animate-pulse-slow" style={{ animationDelay: '4s' }} />
         </div>
-      </div>
-
+        </div>
+        
       <div className="container px-4 mx-auto relative z-10">
         <div className="max-w-7xl mx-auto">
           {/* Header */}
@@ -92,7 +92,7 @@ const ServicesSection = () => {
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-aeron-purple/20 to-aeron-blue/20 border border-aeron-purple/30 backdrop-blur-xl mb-8">
                 <Award className="w-4 h-4 text-aeron-purple" />
                 <span className="text-sm font-medium text-white/90">How We Work?</span>
-              </div>
+                      </div>
             </Transition>
             
             <Transition
@@ -120,7 +120,7 @@ const ServicesSection = () => {
                 We make it easy to bring your ideas to life, guiding you from concept to a fully launched product.
               </p>
             </Transition>
-
+            
             <Transition
               show={isVisible}
               enter="transition-all duration-1000 ease-out delay-600"
@@ -175,11 +175,11 @@ const ServicesSection = () => {
               </div>
             </Transition>
 
-            <Transition
+                  <Transition
               show={isVisible}
               enter="transition-all duration-1000 ease-out delay-[1000ms]"
               enterFrom="opacity-0 translate-y-20"
-              enterTo="opacity-100 translate-y-0"
+                    enterTo="opacity-100 translate-y-0"
             >
               <div
                 className={`relative p-8 rounded-3xl backdrop-blur-2xl border transition-all duration-500 cursor-pointer group ${
@@ -209,13 +209,13 @@ const ServicesSection = () => {
                     <CheckCircle className="w-4 h-4 text-aeron-purple flex-shrink-0" />
                     <span className="text-sm text-white/80">Real Time Collaboration</span>
                   </div>
-                </div>
+                              </div>
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-aeron-blue to-aeron-cyan opacity-0 group-hover:opacity-5 transition-opacity duration-500" />
                 <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-gradient-to-r from-aeron-purple to-aeron-blue opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
-              </div>
+                      </div>
             </Transition>
 
-            <Transition
+                            <Transition
               show={isVisible}
               enter="transition-all duration-1000 ease-out delay-[1200ms]"
               enterFrom="opacity-0 translate-y-20"
@@ -229,7 +229,7 @@ const ServicesSection = () => {
                 }`}
                 onMouseEnter={() => setActiveStage(2)}
                 onMouseLeave={() => setActiveStage(-1)}
-              >
+                            >
                 <div className="text-sm font-bold text-aeron-purple mb-2">Stage 3</div>
                 <div className="w-16 h-16 rounded-2xl bg-gradient-to-r from-aeron-cyan to-aeron-pink flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform duration-300">
                   <Target className="w-6 h-6" />
@@ -257,8 +257,8 @@ const ServicesSection = () => {
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-aeron-cyan to-aeron-pink opacity-0 group-hover:opacity-5 transition-opacity duration-500" />
                 <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-gradient-to-r from-aeron-purple to-aeron-blue opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
               </div>
-            </Transition>
-          </div>
+                            </Transition>
+                          </div>
 
           {/* Visual Workflow */}
           <Transition
@@ -273,7 +273,7 @@ const ServicesSection = () => {
                 <div className="text-center mb-8">
                   <h3 className="text-2xl font-bold text-white mb-2">Our Streamlined Process</h3>
                   <p className="text-white/60">From concept to launch in 3 simple stages</p>
-                </div>
+                        </div>
 
                 {/* Workflow Steps */}
                 <div className="flex items-center justify-between mb-8">
@@ -330,9 +330,9 @@ const ServicesSection = () => {
                 <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 rounded-full text-lg px-8 py-6 font-semibold backdrop-blur-sm hover:scale-105 transition-all duration-300">
                   View Our Work
                 </Button>
-              </div>
-            </div>
-          </Transition>
+                      </div>
+                    </div>
+                  </Transition>
         </div>
       </div>
     </section>

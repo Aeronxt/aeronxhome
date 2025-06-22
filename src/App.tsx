@@ -11,7 +11,7 @@ import AeronXSuiteDetail from "./pages/AeronXSuiteDetail";
 import Contact from "./pages/Contact";
 import AboutUs from "./pages/AboutUs";
 import Login from "./pages/Login";
-import Pricing from "./pages/Pricing";
+
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,7 +30,7 @@ const App = () => (
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<AboutUs />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/pricing" element={<Pricing />} />
+
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>

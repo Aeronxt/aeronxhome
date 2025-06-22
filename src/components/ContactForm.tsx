@@ -83,29 +83,29 @@ const ContactForm = () => {
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     try {
-      const emailData = {
-        name: data.name,
-        email: data.email,
-        message: data.message,
-        company: data.company,
-        phone: data.phone,
-        projectType: data.projectType,
-        budget: data.budget,
-        timeline: data.timeline,
-      };
+      // Create email content
+      const subject = `New Project Inquiry from ${data.name}`;
+      const body = `Name: ${data.name}
+Email: ${data.email}
+${data.company ? `Company: ${data.company}` : ''}
+${data.phone ? `Phone: ${data.phone}` : ''}
+${data.projectType ? `Project Type: ${data.projectType}` : ''}
+${data.budget ? `Budget: ${data.budget}` : ''}
+${data.timeline ? `Timeline: ${data.timeline}` : ''}
+
+Message:
+${data.message}`;
+
+      // Create mailto URL
+      const mailtoUrl = `mailto:info@aeronxtt.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       
-      const result = await sendContactEmail(emailData);
+      // Open default email client
+      window.location.href = mailtoUrl;
       
-      if (result.success) {
-        toast.success("Message sent successfully!", {
-          description: "We'll get back to you as soon as possible.",
+      toast.success("Opening your email client...", {
+        description: "Please send the email to complete your inquiry.",
         });
         setFormComplete(true);
-      } else {
-        toast.error("Failed to send message", {
-          description: result.message,
-        });
-      }
     } catch (error) {
       toast.error("An error occurred", {
         description: "Please try again later.",

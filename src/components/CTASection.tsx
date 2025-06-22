@@ -132,14 +132,10 @@ const CTASection = () => {
             enterFrom="opacity-0 translate-y-10"
             enterTo="opacity-100 translate-y-0"
           >
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex justify-center">
               <Button className="gradient-bg rounded-full text-lg px-8 py-6 hover:scale-105 hover:shadow-xl hover:shadow-aeron-purple/25 transition-all duration-300 group">
                 Start Your Project
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              
-              <Button variant="outline" className="rounded-full text-lg px-8 py-6 border-foreground/20 hover:bg-foreground/5 hover:scale-105 hover:border-aeron-purple/40 transition-all duration-300">
-                Schedule a Call
               </Button>
             </div>
           </Transition>

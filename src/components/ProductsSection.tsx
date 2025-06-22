@@ -126,7 +126,7 @@ const ProductsSection = () => {
                   Results That Propel
                 </span>
                 <span className="block text-white">Your Success</span>
-              </h2>
+            </h2>
             </Transition>
             
             <Transition
@@ -186,7 +186,7 @@ const ProductsSection = () => {
                         ? 'bg-gradient-to-br from-white/20 to-white/10 border-white/30 scale-105 shadow-2xl'
                         : 'bg-gradient-to-br from-white/10 to-white/5 border-white/20 hover:border-white/30'
                     }`}
-                  >
+          >
                     {/* Badge */}
                     {testimonial.badge && (
                       <div className="absolute -top-2 -right-2 px-2 py-1 rounded-full bg-gradient-to-r from-aeron-purple to-aeron-blue text-xs font-bold text-white">
@@ -233,8 +233,8 @@ const ProductsSection = () => {
                     <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-aeron-purple/5 to-aeron-blue/5 opacity-0 hover:opacity-100 transition-opacity duration-500" />
                   </div>
                 ))}
-              </div>
-
+        </div>
+        
               {/* Dots Indicator */}
               <div className="flex justify-center gap-2 mt-8">
                 {testimonials.map((_, index) => (
@@ -246,8 +246,8 @@ const ProductsSection = () => {
                         ? 'bg-gradient-to-r from-aeron-purple to-aeron-blue scale-125'
                         : 'bg-white/30 hover:bg-white/50'
                     }`}
-                  />
-                ))}
+            />
+          ))}
               </div>
             </div>
           </Transition>

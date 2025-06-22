@@ -42,25 +42,25 @@ const AboutSection = () => {
   }, []);
 
   const stats = [
-    { 
+    {
       value: "From $0 to $500,000", 
       label: "in revenue.", 
       icon: <TrendingUp className="w-6 h-6" />,
       delay: 0 
     },
-    { 
+    {
       value: "47% growth", 
       label: "in new customers.", 
       icon: <Users className="w-6 h-6" />,
       delay: 200 
     },
-    { 
+    {
       value: "99.9% uptime", 
       label: "guaranteed.", 
       icon: <Shield className="w-6 h-6" />,
       delay: 400 
     },
-    { 
+    {
       value: "24/7 support", 
       label: "worldwide.", 
       icon: <Globe className="w-6 h-6" />,
@@ -142,8 +142,8 @@ const AboutSection = () => {
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
               </Button>
             </Transition>
-          </div>
-
+            </div>
+            
                     {/* Stats Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
             <Transition
@@ -201,7 +201,7 @@ const AboutSection = () => {
                 </div>
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-aeron-purple/10 to-aeron-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-gradient-to-r from-aeron-purple to-aeron-blue opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
-              </div>
+            </div>
             </Transition>
 
             <Transition
@@ -254,14 +254,14 @@ const AboutSection = () => {
                 <div className="space-y-2">
                   <div className="text-2xl md:text-3xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-aeron-purple group-hover:to-aeron-blue transition-all duration-300">
                     24/7 support
-                  </div>
+            </div>
                   <div className="text-white/70 font-medium">worldwide.</div>
-                </div>
+          </div>
                 <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-aeron-purple/10 to-aeron-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-gradient-to-r from-aeron-purple to-aeron-blue opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
               </div>
             </Transition>
-          </div>
+            </div>
 
           {/* Bottom Section */}
           <Transition

@@ -69,7 +69,7 @@ const Hero = () => {
           }}
         />
       </div>
-
+      
       {/* Floating Elements */}
       <div className="absolute top-1/3 right-1/5 w-2 h-2 rounded-full bg-aeron-purple animate-float opacity-60" />
       <div className="absolute bottom-1/3 left-1/6 w-3 h-3 rounded-full bg-aeron-blue animate-float opacity-50" style={{ animationDelay: '1s' }} />
@@ -79,15 +79,15 @@ const Hero = () => {
         <div className="max-w-7xl mx-auto">
           <div className="text-center">
             {/* Badge */}
-            <Transition
-              show={isVisible}
-              enter="transition-all duration-1000 ease-out"
-              enterFrom="opacity-0 translate-y-10"
-              enterTo="opacity-100 translate-y-0"
-            >
+          <Transition
+            show={isVisible}
+            enter="transition-all duration-1000 ease-out"
+            enterFrom="opacity-0 translate-y-10"
+            enterTo="opacity-100 translate-y-0"
+          >
               <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-aeron-purple/20 to-aeron-blue/20 border border-aeron-purple/30 backdrop-blur-xl mb-8">
                 <div className="w-2 h-2 rounded-full bg-aeron-purple animate-pulse" />
-                <span className="text-sm font-medium text-white/90">No. 1 Tech Studio of 2025</span>
+                <span className="text-sm font-medium text-white/90">Premium Development Studio</span>
               </div>
             </Transition>
             
@@ -103,50 +103,45 @@ const Hero = () => {
                 <span className="block bg-gradient-to-r from-aeron-purple via-aeron-blue to-aeron-cyan bg-clip-text text-transparent">
                   for Developers.
                 </span>
-              </h1>
-            </Transition>
-            
+            </h1>
+          </Transition>
+          
             {/* Description */}
-            <Transition
-              show={isVisible}
+          <Transition
+            show={isVisible}
               enter="transition-all duration-1000 ease-out delay-400"
-              enterFrom="opacity-0 translate-y-10"
-              enterTo="opacity-100 translate-y-0"
-            >
+            enterFrom="opacity-0 translate-y-10"
+            enterTo="opacity-100 translate-y-0"
+          >
               <p className="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-12 leading-relaxed">
                 We specialize in crafting unique digital presence
                 <br />
                 that help businesses grow and stand out in their industries.
-              </p>
-            </Transition>
-
+            </p>
+          </Transition>
+          
             {/* CTA Buttons */}
-            <Transition
-              show={isVisible}
+          <Transition
+            show={isVisible}
               enter="transition-all duration-1000 ease-out delay-600"
-              enterFrom="opacity-0 translate-y-10"
-              enterTo="opacity-100 translate-y-0"
-            >
-              <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            enterFrom="opacity-0 translate-y-10"
+            enterTo="opacity-100 translate-y-0"
+          >
+              <div className="flex justify-center mb-16">
                 <Button className="bg-white text-black hover:bg-white/90 rounded-full text-lg px-8 py-6 font-semibold hover:scale-105 transition-all duration-300 group">
                   Connect With Us
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
-                
-                <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 rounded-full text-lg px-8 py-6 font-semibold backdrop-blur-sm hover:scale-105 transition-all duration-300 group">
-                  <Play className="mr-2 h-4 w-4" />
-                  What is AeronX?
-                </Button>
               </div>
-            </Transition>
-
+              </Transition>
+              
             {/* Client Logos */}
-            <Transition
-              show={isVisible}
+              <Transition
+                show={isVisible}
               enter="transition-all duration-1000 ease-out delay-800"
               enterFrom="opacity-0 translate-y-10"
               enterTo="opacity-100 translate-y-0"
-            >
+              >
               <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-50">
                 {logos.map((logo, index) => (
                   <div 
@@ -158,7 +153,7 @@ const Hero = () => {
                   </div>
                 ))}
               </div>
-            </Transition>
+              </Transition>
           </div>
 
           {/* Preview Section */}
@@ -184,7 +179,11 @@ const Hero = () => {
                     {/* Header */}
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-4">
-                        <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-aeron-purple to-aeron-blue" />
+                        <img 
+                          src="https://wrczctvglyhprlbkogjb.supabase.co/storage/v1/object/public/mob//aerondropshad.png" 
+                          alt="Aeron X" 
+                          className="w-10 h-10 rounded-xl opacity-80"
+                        />
                         <div>
                           <div className="h-4 bg-white/20 rounded w-24 mb-2" />
                           <div className="h-3 bg-white/10 rounded w-16" />

@@ -92,7 +92,7 @@ const Contact = () => {
               {[
                 {
                   question: "What information do you need to provide a quote?",
-                  answer: "To provide an accurate quote, we typically need to understand your project scope, timeline, features required, and any specific technical requirements. Our interactive form helps gather this information, but we're also happy to schedule a call to discuss in more detail."
+                  answer: "To provide an accurate quote, we typically need to understand your project scope, timeline, features required, and any specific technical requirements. Our interactive form helps gather this information, and we're happy to discuss in more detail."
                 },
                 {
                   question: "How long does it typically take to build a custom solution?",
