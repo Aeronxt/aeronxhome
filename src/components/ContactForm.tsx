@@ -1,14 +1,13 @@
-
 import { useState } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { RadioGroup, Transition } from "@headlessui/react";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Button } from "@/components/ui/button";
-import { Check, ChevronRight, Loader2, Mail, Send, User } from "lucide-react";
+import { Check, ChevronRight, Loader2, Mail, Send, User, ChevronLeftIcon } from "lucide-react";
 import { toast } from "@/components/ui/sonner";
 import { sendContactEmail } from "@/services/emailService";
 
@@ -24,6 +23,27 @@ const formSchema = z.object({
 });
 
 type FormValues = z.infer<typeof formSchema>;
+
+const projectTypes = [
+  { value: 'website', label: 'Website Development', description: 'Custom websites and web applications' },
+  { value: 'mobile', label: 'Mobile App', description: 'iOS and Android applications' },
+  { value: 'enterprise', label: 'Enterprise Solution', description: 'Large-scale business systems' },
+  { value: 'other', label: 'Other', description: 'Custom or specialized projects' },
+];
+
+const budgetRanges = [
+  { value: '<10k', label: 'Under $10,000', description: 'Small projects and MVPs' },
+  { value: '10k-25k', label: '$10,000 - $25,000', description: 'Medium-sized projects' },
+  { value: '25k-50k', label: '$25,000 - $50,000', description: 'Large projects' },
+  { value: '50k+', label: '$50,000+', description: 'Enterprise solutions' },
+];
+
+const timelineOptions = [
+  { value: 'asap', label: 'ASAP', description: 'Urgent timeline' },
+  { value: '1-3months', label: '1-3 Months', description: 'Standard timeline' },
+  { value: '3-6months', label: '3-6 Months', description: 'Extended timeline' },
+  { value: '6months+', label: '6+ Months', description: 'Long-term project' },
+];
 
 const ContactForm = () => {
   const [step, setStep] = useState(1);
@@ -63,11 +83,10 @@ const ContactForm = () => {
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     try {
-      // Ensure required fields are present before sending
       const emailData = {
-        name: data.name, // Required field
-        email: data.email, // Required field
-        message: data.message, // Required field
+        name: data.name,
+        email: data.email,
+        message: data.message,
         company: data.company,
         phone: data.phone,
         projectType: data.projectType,
@@ -98,7 +117,13 @@ const ContactForm = () => {
 
   if (formComplete) {
     return (
-      <div className="flex flex-col items-center justify-center py-12 text-center animate-fade-in">
+      <Transition
+        show={formComplete}
+        enter="transition-all duration-500"
+        enterFrom="opacity-0 scale-95"
+        enterTo="opacity-100 scale-100"
+        className="flex flex-col items-center justify-center py-12 text-center"
+      >
         <div className="w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center mb-6">
           <Check className="w-8 h-8 text-green-500" />
         </div>
@@ -116,7 +141,7 @@ const ContactForm = () => {
         >
           Send Another Message
         </Button>
-      </div>
+      </Transition>
     );
   }
 
@@ -149,135 +174,166 @@ const ContactForm = () => {
       </div>
 
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 animate-fade-in">
-          {step === 1 && (
-            <>
-              <h2 className="text-xl font-bold mb-6 text-center">Tell us about yourself</h2>
-              <div className="grid gap-6 sm:grid-cols-2">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        <div className="flex items-center gap-2">
-                          <User size={16} />
-                          <span>Name</span>
-                        </div>
-                      </FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="John Doe" 
-                          {...field} 
-                          className="transition-all duration-300 border-border/50 focus:border-aeron-purple"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>
-                        <div className="flex items-center gap-2">
-                          <Mail size={16} />
-                          <span>Email</span>
-                        </div>
-                      </FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="john@example.com" 
-                          type="email" 
-                          {...field} 
-                          className="transition-all duration-300 border-border/50 focus:border-aeron-purple"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="company"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Company (Optional)</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="Your Company" 
-                          {...field} 
-                          className="transition-all duration-300 border-border/50 focus:border-aeron-purple"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Phone (Optional)</FormLabel>
-                      <FormControl>
-                        <Input 
-                          placeholder="+1 (123) 456-7890" 
-                          {...field} 
-                          className="transition-all duration-300 border-border/50 focus:border-aeron-purple"
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </>
-          )}
-
-          {step === 2 && (
-            <>
-              <h2 className="text-xl font-bold mb-6 text-center">Project Details</h2>
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <Transition
+            show={step === 1}
+            enter="transition-all duration-300"
+            enterFrom="opacity-0 translate-x-4"
+            enterTo="opacity-100 translate-x-0"
+            leave="transition-all duration-300"
+            leaveFrom="opacity-100 translate-x-0"
+            leaveTo="opacity-0 -translate-x-4"
+          >
+            {step === 1 && (
               <div className="space-y-6">
+                <h2 className="text-xl font-bold mb-6 text-center">Tell us about yourself</h2>
+                <div className="grid gap-6 sm:grid-cols-2">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          <div className="flex items-center gap-2">
+                            <User size={16} />
+                            <span>Name</span>
+                          </div>
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="John Doe" 
+                            {...field} 
+                            className="transition-all duration-300 border-border/50 focus:border-aeron-purple"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          <div className="flex items-center gap-2">
+                            <Mail size={16} />
+                            <span>Email</span>
+                          </div>
+                        </FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="john@example.com" 
+                            type="email" 
+                            {...field} 
+                            className="transition-all duration-300 border-border/50 focus:border-aeron-purple"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="company"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Company (Optional)</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="Your Company" 
+                            {...field} 
+                            className="transition-all duration-300 border-border/50 focus:border-aeron-purple"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Phone (Optional)</FormLabel>
+                        <FormControl>
+                          <Input 
+                            placeholder="+1 (555) 123-4567" 
+                            type="tel" 
+                            {...field} 
+                            className="transition-all duration-300 border-border/50 focus:border-aeron-purple"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
+            )}
+          </Transition>
+
+          <Transition
+            show={step === 2}
+            enter="transition-all duration-300"
+            enterFrom="opacity-0 translate-x-4"
+            enterTo="opacity-100 translate-x-0"
+            leave="transition-all duration-300"
+            leaveFrom="opacity-100 translate-x-0"
+            leaveTo="opacity-0 -translate-x-4"
+          >
+            {step === 2 && (
+              <div className="space-y-8">
+                <h2 className="text-xl font-bold mb-6 text-center">Project Details</h2>
+                
                 <FormField
                   control={form.control}
                   name="projectType"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>What type of project are you looking for?</FormLabel>
-                      <div className="grid gap-4 pt-2">
-                        <RadioGroup 
-                          defaultValue={field.value} 
-                          onValueChange={field.onChange} 
-                          className="grid grid-cols-2 gap-4"
-                        >
-                          {[
-                            { value: 'website', label: 'Website' },
-                            { value: 'mobile', label: 'Mobile App' },
-                            { value: 'enterprise', label: 'Enterprise Solution' },
-                            { value: 'other', label: 'Other' },
-                          ].map((option) => (
-                            <div key={option.value}>
-                              <RadioGroupItem
-                                value={option.value}
-                                id={`project-${option.value}`}
-                                className="peer sr-only"
-                              />
-                              <FormLabel
-                                htmlFor={`project-${option.value}`}
-                                className="flex flex-col items-center justify-between border border-border/50 rounded-md p-4 hover:bg-accent transition-all peer-data-[state=checked]:border-aeron-purple peer-data-[state=checked]:bg-aeron-purple/5 cursor-pointer"
+                      <FormControl>
+                        <RadioGroup value={field.value} onChange={field.onChange}>
+                          <div className="grid gap-3 sm:grid-cols-2">
+                            {projectTypes.map((type) => (
+                              <RadioGroup.Option
+                                key={type.value}
+                                value={type.value}
+                                className={({ checked }) =>
+                                  `relative flex cursor-pointer rounded-lg px-4 py-3 border transition-all duration-200 focus:outline-none ${
+                                    checked
+                                      ? 'bg-aeron-purple/10 border-aeron-purple text-aeron-purple'
+                                      : 'border-border hover:border-aeron-purple/50'
+                                  }`
+                                }
                               >
-                                <span>{option.label}</span>
-                              </FormLabel>
-                            </div>
-                          ))}
+                                {({ checked }) => (
+                                  <div className="flex w-full items-center justify-between">
+                                    <div className="flex items-center">
+                                      <div className="text-sm">
+                                        <RadioGroup.Label className="font-medium">
+                                          {type.label}
+                                        </RadioGroup.Label>
+                                        <RadioGroup.Description className="text-foreground/60">
+                                          {type.description}
+                                        </RadioGroup.Description>
+                                      </div>
+                                    </div>
+                                    {checked && (
+                                      <div className="shrink-0 text-aeron-purple">
+                                        <Check className="h-4 w-4" />
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                              </RadioGroup.Option>
+                            ))}
+                          </div>
                         </RadioGroup>
-                      </div>
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -289,34 +345,45 @@ const ContactForm = () => {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>What's your budget range?</FormLabel>
-                      <div className="grid gap-4 pt-2">
-                        <RadioGroup 
-                          defaultValue={field.value} 
-                          onValueChange={field.onChange} 
-                          className="grid grid-cols-2 gap-4"
-                        >
-                          {[
-                            { value: '<10k', label: 'Less than $10,000' },
-                            { value: '10k-25k', label: '$10,000 - $25,000' },
-                            { value: '25k-50k', label: '$25,000 - $50,000' },
-                            { value: '50k+', label: 'More than $50,000' },
-                          ].map((option) => (
-                            <div key={option.value}>
-                              <RadioGroupItem
-                                value={option.value}
-                                id={`budget-${option.value}`}
-                                className="peer sr-only"
-                              />
-                              <FormLabel
-                                htmlFor={`budget-${option.value}`}
-                                className="flex flex-col items-center justify-between border border-border/50 rounded-md p-4 hover:bg-accent transition-all peer-data-[state=checked]:border-aeron-purple peer-data-[state=checked]:bg-aeron-purple/5 cursor-pointer"
+                      <FormControl>
+                        <RadioGroup value={field.value} onChange={field.onChange}>
+                          <div className="grid gap-3 sm:grid-cols-2">
+                            {budgetRanges.map((budget) => (
+                              <RadioGroup.Option
+                                key={budget.value}
+                                value={budget.value}
+                                className={({ checked }) =>
+                                  `relative flex cursor-pointer rounded-lg px-4 py-3 border transition-all duration-200 focus:outline-none ${
+                                    checked
+                                      ? 'bg-aeron-purple/10 border-aeron-purple text-aeron-purple'
+                                      : 'border-border hover:border-aeron-purple/50'
+                                  }`
+                                }
                               >
-                                <span>{option.label}</span>
-                              </FormLabel>
-                            </div>
-                          ))}
+                                {({ checked }) => (
+                                  <div className="flex w-full items-center justify-between">
+                                    <div className="flex items-center">
+                                      <div className="text-sm">
+                                        <RadioGroup.Label className="font-medium">
+                                          {budget.label}
+                                        </RadioGroup.Label>
+                                        <RadioGroup.Description className="text-foreground/60">
+                                          {budget.description}
+                                        </RadioGroup.Description>
+                                      </div>
+                                    </div>
+                                    {checked && (
+                                      <div className="shrink-0 text-aeron-purple">
+                                        <Check className="h-4 w-4" />
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                              </RadioGroup.Option>
+                            ))}
+                          </div>
                         </RadioGroup>
-                      </div>
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
@@ -327,107 +394,136 @@ const ContactForm = () => {
                   name="timeline"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>What's your timeline?</FormLabel>
-                      <div className="grid gap-4 pt-2">
-                        <RadioGroup 
-                          defaultValue={field.value} 
-                          onValueChange={field.onChange} 
-                          className="grid grid-cols-2 gap-4"
-                        >
-                          {[
-                            { value: 'asap', label: 'As soon as possible' },
-                            { value: '1-3months', label: '1-3 months' },
-                            { value: '3-6months', label: '3-6 months' },
-                            { value: '6months+', label: '6+ months' },
-                          ].map((option) => (
-                            <div key={option.value}>
-                              <RadioGroupItem
-                                value={option.value}
-                                id={`timeline-${option.value}`}
-                                className="peer sr-only"
-                              />
-                              <FormLabel
-                                htmlFor={`timeline-${option.value}`}
-                                className="flex flex-col items-center justify-between border border-border/50 rounded-md p-4 hover:bg-accent transition-all peer-data-[state=checked]:border-aeron-purple peer-data-[state=checked]:bg-aeron-purple/5 cursor-pointer"
+                      <FormLabel>What's your preferred timeline?</FormLabel>
+                      <FormControl>
+                        <RadioGroup value={field.value} onChange={field.onChange}>
+                          <div className="grid gap-3 sm:grid-cols-2">
+                            {timelineOptions.map((timeline) => (
+                              <RadioGroup.Option
+                                key={timeline.value}
+                                value={timeline.value}
+                                className={({ checked }) =>
+                                  `relative flex cursor-pointer rounded-lg px-4 py-3 border transition-all duration-200 focus:outline-none ${
+                                    checked
+                                      ? 'bg-aeron-purple/10 border-aeron-purple text-aeron-purple'
+                                      : 'border-border hover:border-aeron-purple/50'
+                                  }`
+                                }
                               >
-                                <span>{option.label}</span>
-                              </FormLabel>
-                            </div>
-                          ))}
+                                {({ checked }) => (
+                                  <div className="flex w-full items-center justify-between">
+                                    <div className="flex items-center">
+                                      <div className="text-sm">
+                                        <RadioGroup.Label className="font-medium">
+                                          {timeline.label}
+                                        </RadioGroup.Label>
+                                        <RadioGroup.Description className="text-foreground/60">
+                                          {timeline.description}
+                                        </RadioGroup.Description>
+                                      </div>
+                                    </div>
+                                    {checked && (
+                                      <div className="shrink-0 text-aeron-purple">
+                                        <Check className="h-4 w-4" />
+                                      </div>
+                                    )}
+                                  </div>
+                                )}
+                              </RadioGroup.Option>
+                            ))}
+                          </div>
                         </RadioGroup>
-                      </div>
+                      </FormControl>
                       <FormMessage />
                     </FormItem>
                   )}
                 />
               </div>
-            </>
-          )}
+            )}
+          </Transition>
 
-          {step === 3 && (
-            <>
-              <h2 className="text-xl font-bold mb-6 text-center">Project Description</h2>
-              <FormField
-                control={form.control}
-                name="message"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Tell us about your project</FormLabel>
-                    <FormControl>
-                      <Textarea 
-                        placeholder="Please share more details about your project, goals, and any specific requirements..." 
-                        {...field} 
-                        rows={6}
-                        className="transition-all duration-300 border-border/50 focus:border-aeron-purple resize-none"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </>
-          )}
+          <Transition
+            show={step === 3}
+            enter="transition-all duration-300"
+            enterFrom="opacity-0 translate-x-4"
+            enterTo="opacity-100 translate-x-0"
+            leave="transition-all duration-300"
+            leaveFrom="opacity-100 translate-x-0"
+            leaveTo="opacity-0 -translate-x-4"
+          >
+            {step === 3 && (
+              <div className="space-y-6">
+                <h2 className="text-xl font-bold mb-6 text-center">Tell us about your project</h2>
+                <FormField
+                  control={form.control}
+                  name="message"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>
+                        <div className="flex items-center gap-2">
+                          <Send size={16} />
+                          <span>Project Description</span>
+                        </div>
+                      </FormLabel>
+                      <FormControl>
+                        <Textarea 
+                          placeholder="Tell us about your project goals, requirements, and any specific features you need..."
+                          className="min-h-[120px] transition-all duration-300 border-border/50 focus:border-aeron-purple resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+            )}
+          </Transition>
 
-          <div className={`flex ${step > 1 ? 'justify-between' : 'justify-end'} pt-6`}>
+          {/* Navigation Buttons */}
+          <div className="flex justify-between pt-6">
             {step > 1 && (
-              <Button 
-                type="button" 
-                variant="outline" 
+              <Button
+                type="button"
+                variant="outline"
                 onClick={prevStep}
-                disabled={isSubmitting}
+                className="flex items-center gap-2"
               >
-                Back
+                <ChevronLeftIcon size={16} />
+                Previous
               </Button>
             )}
-
-            {step < totalSteps ? (
-              <Button 
-                type="button" 
-                onClick={nextStep} 
-                className="gradient-bg"
-              >
-                Next Step
-                <ChevronRight size={16} className="ml-2" />
-              </Button>
-            ) : (
-              <Button 
-                type="submit" 
-                disabled={isSubmitting} 
-                className="gradient-bg"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 size={16} className="mr-2 animate-spin" />
-                    Sending...
-                  </>
-                ) : (
-                  <>
-                    <Send size={16} className="mr-2" />
-                    Send Message
-                  </>
-                )}
-              </Button>
-            )}
+            
+            <div className="ml-auto">
+              {step < totalSteps ? (
+                <Button
+                  type="button"
+                  onClick={nextStep}
+                  className="gradient-bg flex items-center gap-2"
+                >
+                  Next
+                  <ChevronRight size={16} />
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="gradient-bg flex items-center gap-2"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send size={16} />
+                      Send Message
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
           </div>
         </form>
       </Form>

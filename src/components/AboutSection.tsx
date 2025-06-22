@@ -1,146 +1,294 @@
-
-import { useEffect } from "react";
-import { Compass, Users, Lightbulb, User, HandHeart, DollarSign, Cloud } from "lucide-react";
-
-type ValueCardProps = {
-  title: string;
-  icon: React.ReactNode;
-  delay: number;
-};
-
-const ValueCard = ({ title, icon, delay }: ValueCardProps) => {
-  return (
-    <div 
-      className="flex items-center gap-4 animate-on-scroll"
-      style={{ animationDelay: `${delay * 0.1}s` }}
-    >
-      <div className="w-12 h-12 rounded-xl gradient-bg flex items-center justify-center shrink-0">
-        {icon}
-      </div>
-      <div>
-        <h3 className="text-lg font-bold mb-1">{title}</h3>
-      </div>
-    </div>
-  );
-};
+import { useState, useEffect } from "react";
+import { Transition } from "@headlessui/react";
+import { 
+  ArrowRight, 
+  TrendingUp, 
+  Users, 
+  Target,
+  Zap,
+  Shield,
+  Globe,
+  Award,
+  CheckCircle
+} from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 const AboutSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [hoveredStat, setHoveredStat] = useState<number | null>(null);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("in-view");
+            setIsVisible(true);
           }
         });
       },
       { threshold: 0.1 }
     );
     
-    const elements = document.querySelectorAll(".animate-on-scroll");
-    elements.forEach((el) => {
-      observer.observe(el);
-    });
+    const section = document.getElementById('about');
+    if (section) {
+      observer.observe(section);
+    }
     
     return () => {
-      elements.forEach((el) => {
-        observer.unobserve(el);
-      });
+      if (section) {
+        observer.unobserve(section);
+      }
     };
   }, []);
 
-  const coreValues = [
-    {
-      title: "Innovation First",
-      icon: <Lightbulb className="h-6 w-6 text-white" />,
+  const stats = [
+    { 
+      value: "From $0 to $500,000", 
+      label: "in revenue.", 
+      icon: <TrendingUp className="w-6 h-6" />,
+      delay: 0 
     },
-    {
-      title: "Client-Centric Design",
-      icon: <User className="h-6 w-6 text-white" />,
+    { 
+      value: "47% growth", 
+      label: "in new customers.", 
+      icon: <Users className="w-6 h-6" />,
+      delay: 200 
     },
-    {
-      title: "End-to-End Support",
-      icon: <HandHeart className="h-6 w-6 text-white" />,
+    { 
+      value: "99.9% uptime", 
+      label: "guaranteed.", 
+      icon: <Shield className="w-6 h-6" />,
+      delay: 400 
     },
-    {
-      title: "Affordable, Scalable Tech",
-      icon: <DollarSign className="h-6 w-6 text-white" />,
-    },
-    {
-      title: "Future-Proof Architecture",
-      icon: <Cloud className="h-6 w-6 text-white" />,
-    },
+    { 
+      value: "24/7 support", 
+      label: "worldwide.", 
+      icon: <Globe className="w-6 h-6" />,
+      delay: 600 
+    }
+  ];
+
+  const features = [
+    "Delivering high-quality, on-demand designs with precision.",
+    "Elevate your brand effortlessly, one snap at a time.",
+    "Effortlessly connect with your favorite tools.",
+    "Whether it's your CRM, email marketing platform."
   ];
 
   return (
-    <section id="about" className="py-24 relative overflow-hidden bg-muted/20">
-      <div className="container px-4 mx-auto">
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20 items-center">
-          <div className="w-full lg:w-1/2">
-            <div className="flex items-center gap-3 mb-4 animate-on-scroll">
-              <div className="w-10 h-10 rounded-full gradient-bg flex items-center justify-center shrink-0">
-                <Compass className="h-5 w-5 text-white" />
+    <section id="about" className="py-32 relative overflow-hidden">
+      {/* Premium Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0A0A0F] via-[#111127] to-[#1A1A2E]">
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full bg-gradient-to-r from-aeron-purple/30 to-aeron-blue/30 blur-3xl animate-pulse-slow" />
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full bg-gradient-to-r from-aeron-cyan/30 to-aeron-pink/30 blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }} />
+        </div>
+      </div>
+
+      <div className="container px-4 mx-auto relative z-10">
+        <div className="max-w-7xl mx-auto">
+          {/* Header */}
+          <div className="text-center mb-20">
+            <Transition
+              show={isVisible}
+              enter="transition-all duration-1000 ease-out"
+              enterFrom="opacity-0 translate-y-10"
+              enterTo="opacity-100 translate-y-0"
+            >
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-aeron-purple/20 to-aeron-blue/20 border border-aeron-purple/30 backdrop-blur-xl mb-8">
+                <Award className="w-4 h-4 text-aeron-purple" />
+                <span className="text-sm font-medium text-white/90">About AeronX</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-bold">
-                About <span className="gradient-text">Aeron X</span>
+            </Transition>
+            
+            <Transition
+              show={isVisible}
+              enter="transition-all duration-1200 ease-out delay-200"
+              enterFrom="opacity-0 translate-y-20"
+              enterTo="opacity-100 translate-y-0"
+            >
+              <h2 className="text-5xl md:text-7xl font-extrabold leading-tight mb-8">
+                <span className="block text-white">Building Stronger</span>
+                <span className="block bg-gradient-to-r from-aeron-purple via-aeron-blue to-aeron-cyan bg-clip-text text-transparent">
+                  Brands Creating
+                </span>
+                <span className="block text-white">Impressions!</span>
               </h2>
-            </div>
+            </Transition>
             
-            <div className="mb-8 animate-on-scroll" style={{ animationDelay: "0.1s" }}>
-              <h3 className="text-xl font-bold mb-2">Our Mission:</h3>
-              <p className="text-lg text-foreground/70">
-                To simplify, streamline, and supercharge industry operations through tailored IT solutions that are as innovative as they are affordable.
-              </p>
-            </div>
-            
-            <div className="mb-8 animate-on-scroll" style={{ animationDelay: "0.2s" }}>
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-8 h-8 rounded-full gradient-bg flex items-center justify-center shrink-0">
-                  <Users className="h-4 w-4 text-white" />
-                </div>
-                <h3 className="text-xl font-bold">Who We Are:</h3>
-              </div>
-              
-              <p className="text-lg text-foreground/70">
-                Founded by a team of aviation and technology professionals, AERON X Technologies is the first travel-tech provider from Bangladesh with a global vision. We're redefining enterprise management with high-performance platforms that empower businesses of every size.
-              </p>
-            </div>
-            
-            <div className="animate-on-scroll" style={{ animationDelay: "0.3s" }}>
-              <h3 className="text-xl font-bold mb-4">Core Values:</h3>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                {coreValues.map((value, index) => (
-                  <ValueCard 
-                    key={value.title}
-                    title={value.title}
-                    icon={value.icon}
-                    delay={index + 4}
-                  />
+            <Transition
+              show={isVisible}
+              enter="transition-all duration-1000 ease-out delay-400"
+              enterFrom="opacity-0 translate-y-10"
+              enterTo="opacity-100 translate-y-0"
+            >
+              <div className="max-w-3xl mx-auto space-y-4 mb-12">
+                {features.map((feature, index) => (
+                  <p key={index} className="text-xl text-white/70 leading-relaxed">
+                    {feature}
+                  </p>
                 ))}
               </div>
-            </div>
+            </Transition>
+
+            <Transition
+              show={isVisible}
+              enter="transition-all duration-1000 ease-out delay-600"
+              enterFrom="opacity-0 translate-y-10"
+              enterTo="opacity-100 translate-y-0"
+            >
+              <Button className="bg-white text-black hover:bg-white/90 rounded-full text-lg px-8 py-6 font-semibold hover:scale-105 transition-all duration-300 group">
+                View About AeronX
+                <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
+              </Button>
+            </Transition>
           </div>
-          
-          <div className="w-full lg:w-1/2 relative animate-on-scroll">
-            <div className="aspect-square rounded-3xl bg-gradient-to-br from-aeron-purple to-aeron-blue p-1">
-              <div className="w-full h-full bg-background rounded-3xl overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
-                  alt="Team collaboration" 
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                />
+
+                    {/* Stats Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+            <Transition
+              show={isVisible}
+              enter="transition-all duration-1000 ease-out delay-[800ms]"
+              enterFrom="opacity-0 translate-y-20"
+              enterTo="opacity-100 translate-y-0"
+            >
+              <div
+                className={`relative p-8 rounded-3xl backdrop-blur-2xl border transition-all duration-500 cursor-pointer group ${
+                  hoveredStat === 0 
+                    ? 'bg-gradient-to-br from-white/20 to-white/10 border-white/30 scale-105' 
+                    : 'bg-gradient-to-br from-white/10 to-white/5 border-white/20 hover:border-white/30'
+                }`}
+                onMouseEnter={() => setHoveredStat(0)}
+                onMouseLeave={() => setHoveredStat(null)}
+              >
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-aeron-purple to-aeron-blue flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform duration-300">
+                  <TrendingUp className="w-6 h-6" />
+                </div>
+                <div className="space-y-2">
+                  <div className="text-2xl md:text-3xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-aeron-purple group-hover:to-aeron-blue transition-all duration-300">
+                    From $0 to $500,000
+                  </div>
+                  <div className="text-white/70 font-medium">in revenue.</div>
+                </div>
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-aeron-purple/10 to-aeron-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-gradient-to-r from-aeron-purple to-aeron-blue opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
               </div>
-            </div>
-            <div className="absolute -bottom-6 -left-6 w-40 h-40 rounded-3xl bg-gradient-to-br from-aeron-cyan to-aeron-indigo p-1 animate-float">
-              <div className="w-full h-full bg-background rounded-3xl overflow-hidden">
-                <img 
-                  src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80" 
-                  alt="Developer coding" 
-                  className="w-full h-full object-cover transition-transform duration-700 hover:scale-110"
-                />
+            </Transition>
+
+            <Transition
+              show={isVisible}
+              enter="transition-all duration-1000 ease-out delay-[1000ms]"
+              enterFrom="opacity-0 translate-y-20"
+              enterTo="opacity-100 translate-y-0"
+            >
+              <div
+                className={`relative p-8 rounded-3xl backdrop-blur-2xl border transition-all duration-500 cursor-pointer group ${
+                  hoveredStat === 1 
+                    ? 'bg-gradient-to-br from-white/20 to-white/10 border-white/30 scale-105' 
+                    : 'bg-gradient-to-br from-white/10 to-white/5 border-white/20 hover:border-white/30'
+                }`}
+                onMouseEnter={() => setHoveredStat(1)}
+                onMouseLeave={() => setHoveredStat(null)}
+              >
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-aeron-purple to-aeron-blue flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform duration-300">
+                  <Users className="w-6 h-6" />
+                </div>
+                <div className="space-y-2">
+                  <div className="text-2xl md:text-3xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-aeron-purple group-hover:to-aeron-blue transition-all duration-300">
+                    47% growth
+                  </div>
+                  <div className="text-white/70 font-medium">in new customers.</div>
+                </div>
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-aeron-purple/10 to-aeron-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-gradient-to-r from-aeron-purple to-aeron-blue opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
               </div>
-            </div>
+            </Transition>
+
+            <Transition
+              show={isVisible}
+              enter="transition-all duration-1000 ease-out delay-[1200ms]"
+              enterFrom="opacity-0 translate-y-20"
+              enterTo="opacity-100 translate-y-0"
+            >
+              <div
+                className={`relative p-8 rounded-3xl backdrop-blur-2xl border transition-all duration-500 cursor-pointer group ${
+                  hoveredStat === 2 
+                    ? 'bg-gradient-to-br from-white/20 to-white/10 border-white/30 scale-105' 
+                    : 'bg-gradient-to-br from-white/10 to-white/5 border-white/20 hover:border-white/30'
+                }`}
+                onMouseEnter={() => setHoveredStat(2)}
+                onMouseLeave={() => setHoveredStat(null)}
+              >
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-aeron-purple to-aeron-blue flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform duration-300">
+                  <Shield className="w-6 h-6" />
+                </div>
+                <div className="space-y-2">
+                  <div className="text-2xl md:text-3xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-aeron-purple group-hover:to-aeron-blue transition-all duration-300">
+                    99.9% uptime
+                  </div>
+                  <div className="text-white/70 font-medium">guaranteed.</div>
+                </div>
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-aeron-purple/10 to-aeron-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-gradient-to-r from-aeron-purple to-aeron-blue opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
+              </div>
+            </Transition>
+
+            <Transition
+              show={isVisible}
+              enter="transition-all duration-1000 ease-out delay-[1400ms]"
+              enterFrom="opacity-0 translate-y-20"
+              enterTo="opacity-100 translate-y-0"
+            >
+              <div
+                className={`relative p-8 rounded-3xl backdrop-blur-2xl border transition-all duration-500 cursor-pointer group ${
+                  hoveredStat === 3 
+                    ? 'bg-gradient-to-br from-white/20 to-white/10 border-white/30 scale-105' 
+                    : 'bg-gradient-to-br from-white/10 to-white/5 border-white/20 hover:border-white/30'
+                }`}
+                onMouseEnter={() => setHoveredStat(3)}
+                onMouseLeave={() => setHoveredStat(null)}
+              >
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-r from-aeron-purple to-aeron-blue flex items-center justify-center mb-6 text-white group-hover:scale-110 transition-transform duration-300">
+                  <Globe className="w-6 h-6" />
+                </div>
+                <div className="space-y-2">
+                  <div className="text-2xl md:text-3xl font-bold text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-aeron-purple group-hover:to-aeron-blue transition-all duration-300">
+                    24/7 support
+                  </div>
+                  <div className="text-white/70 font-medium">worldwide.</div>
+                </div>
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-aeron-purple/10 to-aeron-blue/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-gradient-to-r from-aeron-purple to-aeron-blue opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-pulse" />
+              </div>
+            </Transition>
           </div>
+
+          {/* Bottom Section */}
+          <Transition
+            show={isVisible}
+            enter="transition-all duration-1000 ease-out delay-1200"
+            enterFrom="opacity-0 translate-y-20"
+            enterTo="opacity-100 translate-y-0"
+          >
+            <div className="text-center">
+              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-xl border border-white/20 mb-8">
+                <CheckCircle className="w-5 h-5 text-aeron-purple" />
+                <span className="text-white/90 font-medium">200+ Agencies Rated</span>
+              </div>
+              
+              <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">
+                Delivering Tangible <span className="bg-gradient-to-r from-aeron-purple to-aeron-blue bg-clip-text text-transparent">Results</span>
+              </h3>
+              
+              <p className="text-xl text-white/70 max-w-2xl mx-auto mb-8">
+                At the core of everything we do lies a commitment to delivering measurable outcomes that drive your success.
+              </p>
+
+              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 rounded-full text-lg px-8 py-6 font-semibold backdrop-blur-sm hover:scale-105 transition-all duration-300">
+                Book a 15-min call
+              </Button>
+            </div>
+          </Transition>
         </div>
       </div>
     </section>

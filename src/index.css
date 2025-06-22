@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -57,8 +57,9 @@
   }
   
   body {
-    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
+    @apply bg-[#0A0A0F] text-white font-sans antialiased overflow-x-hidden;
     font-family: 'Inter', sans-serif;
+    background: linear-gradient(135deg, #0A0A0F 0%, #111127 50%, #1A1A2E 100%);
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -66,7 +67,7 @@
   }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-aeron-purple to-aeron-blue bg-300% animate-gradient-shift;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-aeron-purple via-aeron-blue to-aeron-cyan bg-300% animate-gradient-shift;
   }
   
   .gradient-bg {
@@ -74,7 +75,7 @@
   }
   
   .card-hover {
-    @apply transition-all duration-300 hover:shadow-xl hover:shadow-aeron-indigo/10 hover:-translate-y-1;
+    @apply transition-all duration-500 hover:shadow-2xl hover:shadow-aeron-indigo/20 hover:-translate-y-2 hover:scale-[1.02];
   }
   
   .bg-300\% {
@@ -83,6 +84,67 @@
   
   .blur-layer {
     @apply absolute inset-0 backdrop-blur-xl bg-background/30 z-0;
+  }
+
+  /* Premium glass effects */
+  .glass-card {
+    @apply bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-2xl border border-white/20;
+  }
+
+  .glass-button {
+    @apply bg-gradient-to-r from-white/20 to-white/10 backdrop-blur-xl border border-white/20 hover:from-white/30 hover:to-white/20;
+  }
+
+  /* Premium animations */
+  .animate-float-slow {
+    animation: float-slow 8s ease-in-out infinite;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 3s linear infinite;
+  }
+
+  /* Premium hover effects */
+  .hover-lift {
+    @apply transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl;
+  }
+
+  .hover-glow {
+    @apply transition-all duration-300 hover:shadow-2xl hover:shadow-aeron-purple/30;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-105;
+  }
+
+  /* Premium backgrounds */
+  .bg-premium {
+    background: linear-gradient(135deg, #0A0A0F 0%, #111127 50%, #1A1A2E 100%);
+  }
+
+  .bg-premium-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255,255,255,0.2);
+  }
+
+  /* Premium text effects */
+  .text-premium {
+    background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-premium-gradient {
+    background: linear-gradient(135deg, #8B5CF6 0%, #3B82F6 50%, #06B6D4 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }
 
@@ -97,16 +159,80 @@
   transform: translateY(0);
 }
 
-/* Custom classes for animated button */
-.ease-cubic-bezier {
-  transition-timing-function: cubic-bezier(0.23, 1, 0.32, 1);
+/* Custom keyframes */
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
 }
 
-.duration-600 {
-  transition-duration: 600ms;
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 40px rgba(139, 92, 246, 0.6);
+  }
 }
 
-.duration-800 {
-  transition-duration: 800ms;
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Premium scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #8B5CF6, #3B82F6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #7C3AED, #2563EB);
+}
+
+/* Enhanced hover effects */
+.hover-glow {
+  transition: all 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 30px rgba(139, 92, 246, 0.3);
+}
+
+/* Smooth backdrop blur */
+.backdrop-blur-smooth {
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+}
+
+/* Modern glass effect */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Premium button styles */
+.btn-premium {
+  @apply bg-white text-black hover:bg-white/90 font-semibold transition-all duration-300 hover:scale-105 hover:shadow-xl;
+}
+
+.btn-premium-outline {
+  @apply border-white/20 text-white hover:bg-white/10 backdrop-blur-sm font-semibold transition-all duration-300 hover:scale-105;
 }
 
