@@ -64,12 +64,6 @@ const Footer = () => {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex items-center gap-6 text-white/60 text-sm">
               <span>© 2025 Aeron X Technologies</span>
-              <Link to="#" className="hover:text-white transition-colors">
-                Terms & Conditions
-              </Link>
-              <Link to="#" className="hover:text-white transition-colors">
-                Privacy Policy
-              </Link>
             </div>
             
             <button

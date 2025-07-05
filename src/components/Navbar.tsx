@@ -49,7 +49,7 @@ const Navbar = () => {
           <div className="container px-4 mx-auto">
             <div className="flex justify-between items-center">
               {/* Logo */}
-              <Link to="/" className="flex items-center group">
+              <Link to="/" className="flex items-center group transition-transform duration-300 transform translate-x-[96px]">
                 <img 
                   src="https://wrczctvglyhprlbkogjb.supabase.co/storage/v1/object/public/mob//aerondropshad.png" 
                   alt="Aeron X Logo" 
